@@ -98,5 +98,5 @@ map_identifiers <- function(x=NULL,
       dplyr::summarise_each(dplyr::funs(func))
   }
   
-  return(out)
+  return(dF)
 }
