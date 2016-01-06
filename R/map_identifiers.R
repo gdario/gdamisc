@@ -29,7 +29,7 @@
 #' @param func Function. The function used to collapse the rows of x. 
 #' Defaults to \code{sum}.
 #' @param as_matrix Logical. Should the output be a matrix?
-#' @parm rm_blank_ids Logical. Should the blank gene IDs be removed? Defaults
+#' @param rm_blank_ids Logical. Should the blank gene IDs be removed? Defaults
 #' to \code{TRUE}.
 #' @return a data frame containing the (possibly collapsed) expression matrix
 #' mapped to the \code{id2} identifiers.
