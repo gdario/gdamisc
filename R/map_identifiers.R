@@ -100,11 +100,11 @@ map_identifiers <- function(x=NULL,
     dF <- dF %>% 
       dplyr::group_by_(id2) %>% 
       dplyr::summarise_each(dplyr::funs(func)) %>%
-      dplyr::ungroup(dF)
+      dplyr::ungroup()
   }
   
   if (rm_blank_ids) {
-    dF <- filter_(dF, id2 != "")
+    dF <- dplyr::filter_(dF, id2 != "")
   }
   
   if (as_matrix) {
