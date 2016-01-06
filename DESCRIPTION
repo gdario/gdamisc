@@ -1,0 +1,17 @@
+Package: gdamisc
+Title: Utility functions for analyzing the output of gsa.py
+Version: 0.1
+Authors@R: "Giovanni d'Ario <giovanni.dario@novartis.com> [aut, cre]"
+Description: Functions to export the output from gsa.py to igraph
+    and cytoscape.
+Depends: 
+    R (>= 3.0.1)
+License: What license is it under?
+LazyData: true
+Imports: 
+    igraph,
+    biomaRt,
+    dplyr
+Suggests: 
+    ggplot2,
+    testthat
