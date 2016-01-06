@@ -26,14 +26,12 @@
 #' are \code{hsapiens} and \code{mmusculus}. Defaults to \code{hsapiens}.
 #' @param collapse Logical. Should the rows of x be collapsed with respect
 #' to \code{id2}?
-#' @param func Function. The function used to collapse the rows of x. 
+#' @param func Functin. The function used to collapse the rows of x. 
 #' Defaults to \code{sum}.
-#' @param as_matrix Logical. Should the output be a matrix?
-#' @parm rm_blank_ids Logical. Should the blank gene IDs be removed? Defaults
-#' to \code{TRUE}.
 #' @return a data frame containing the (possibly collapsed) expression matrix
 #' mapped to the \code{id2} identifiers.
 #' @export
+#'
 #' @examples
 #' ensg <- c("ENSG00000197421", "ENSG00000140323", "ENSG00000152213", 
 #' "ENSG00000278558", "ENSG00000125775")
@@ -52,9 +50,7 @@ map_identifiers <- function(x=NULL,
                             version=83, 
                             organism=c('hsapiens', 'mmusculus'),
                             collapse=TRUE,
-                            func=sum,
-                            as_matrix=TRUE,
-                            rm_blank_ids=TRUE) {
+                            func=sum) {
 
   require(magrittr)
   organism <- match.arg(organism)
@@ -91,26 +87,16 @@ map_identifiers <- function(x=NULL,
   
   dF <- unique(dplyr::inner_join(id1_to_id2, dF))
   
-  # Remove the id1 identifiers
-  dF <- dplyr::select(dF, -matches(id1))
+  # Remove the id1 identifiers and the blank IDs
+    dF <- dplyr::select(dF, -matches(id1)) %>%
+        
   
   # If required, collapse the identifiers having the same symbol by using 
   # the function speicified in `func`. Sums are suitable for RNA-Seq data.
   if (collapse) {
     dF <- dF %>% 
       dplyr::group_by_(id2) %>% 
-      dplyr::summarise_each(dplyr::funs(func)) %>%
-      dplyr::ungroup(dF)
-  }
-  
-  if (rm_blank_ids) {
-    dF <- filter_(dF, id2 != "")
-  }
-  
-  if (as_matrix) {
-    rownames(dF) <- dF[[id2]]
-    dF <- dplyr::select(dF, -matches(id2))
-    dF <- as.matrix(dF)
+      dplyr::summarise_each(dplyr::funs(func))
   }
   
   return(dF)
