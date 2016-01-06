@@ -104,7 +104,8 @@ map_identifiers <- function(x=NULL,
   }
   
   if (rm_blank_ids) {
-    dF <- dplyr::filter_(dF, id2 != "")
+    idx <- dF[[id2]] != ""
+    dF <- dF[idx, ]
   }
   
   if (as_matrix) {
