@@ -2,10 +2,10 @@
 
 export(clean_bader_gmt)
 export(compute_rank)
-export(ensembl_to_entrez)
 export(gene_set_overlap)
 export(gmt_to_gene_table)
 export(gmt_to_list)
 export(list_to_gmt)
+export(make_report)
 export(map_identifiers)
 export(symbol_to_entrezgene)
